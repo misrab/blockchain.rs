@@ -1,4 +1,6 @@
+mod primitives;
 
+use primitives::Address;
 
 
 
@@ -22,8 +24,8 @@ struct Transaction {
   nonce: Nonce,
   gasPrice: Wei,
   gasLimit: Wei,
-  to: ,
-  value: ,
+  to: Address,
+  value: Address,
   //v, r, s: ,
   //init || data: Option?
 
