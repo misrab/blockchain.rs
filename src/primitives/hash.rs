@@ -8,18 +8,11 @@
 
 
 
+// see end of file for Address definition and
+// use of macros
+
+
 extern crate core;
-
-//use core::*;
-
-// placeholder
-pub type Address = u32;
-
-
-
-//construct_hash!(H256, 32);
-
-
 
 
 
@@ -516,5 +509,7 @@ macro_rules! impl_quickcheck_arbitrary_for_hash {
 
 
 
-
+// interestingly this has to come after the macro definition
 construct_hash!(H160, 20);
+
+pub type Address = H160;
