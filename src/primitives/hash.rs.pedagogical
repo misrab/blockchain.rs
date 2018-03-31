@@ -1,0 +1,49 @@
+// this module is helping me sharpen my macros
+// taken largely from https://github.com/paritytech/primitives/blob/master/fixed-hash/src/hash.rs
+
+
+
+
+
+pub type Address = u64;
+
+
+#[macro_export]
+macro_rules! construct_hash {
+  // e.g. construct_hash!(H32, 4)
+  ($from: ident, $size: expr) => {
+    #[repr(C)]
+    // see https://doc.rust-lang.org/beta/nomicon/other-reprs.html
+    // also https://doc.rust-lang.org/beta/nomicon/repr-rust.html
+    //unformatted binary data of fixed length
+    pub struct $from (pub [u8; $size]);
+
+    // first we allow conversion between byte arrays and
+    // the hash type
+    // this enables let hash = H32::from([...]);
+    impl From<[u8; $size]> for $from {
+      fn from(bytes: [u8; $size]) -> Self {
+        $from(bytes)
+      }
+    }
+
+    impl From<$from> for [u8; $size] {
+      fn from(hash: $from) -> Self {
+        hash.0 // tuple indexeing. !! not sure why
+      }
+    }
+
+
+    // see https://doc.rust-lang.org/std/ops/trait.Deref.html
+    impl ::core::ops::Deref for $from {
+      type Target = [u8]; // any length byte array type alias
+
+      #[inline] // this is a compiler optimisation, kinda like text substitution
+      fn deref(&self) -> &[u8] {
+        &self.0
+      }
+    }
+  }
+}
+
+
