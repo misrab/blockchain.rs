@@ -5,4 +5,4 @@
 mod hash;
 
 
-pub use self::hash::Address;
+pub use self::hash::{Address,Hash};

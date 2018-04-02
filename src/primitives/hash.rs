@@ -7,6 +7,10 @@
 // except according to those terms.
 
 
+// for geth implementation of Hash (256-bit) and Address see
+// https://github.com/ethereum/go-ethereum/blob/master/common/types.go
+// quite interesting
+
 
 // see end of file for Address definition and
 // use of macros
@@ -511,5 +515,7 @@ macro_rules! impl_quickcheck_arbitrary_for_hash {
 
 // interestingly this has to come after the macro definition
 construct_hash!(H160, 20);
+construct_hash!(H256, 32);
 
 pub type Address = H160;
+pub type Hash = H256;
